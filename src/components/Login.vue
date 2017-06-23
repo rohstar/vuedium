@@ -107,11 +107,11 @@ export default {
           dat._data.error = err.message;
         });
       }
-      
+
       //if no errors, take to posts.
       if(auth.currentUser){
         bus.$emit('logged-in', auth.currentUser);
-        this.$router.push('/signup');
+        this.$router.push('/posts');
       }
 
     }

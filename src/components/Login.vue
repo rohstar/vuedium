@@ -10,16 +10,16 @@ body {
 
 <template>
 <div class="container">
-    <div class="row">
+    <div class="row" style="padding-top: 25%">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <h2>Please Login</h2>
+        <h2>Login</h2>
         <hr>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
         <div class="form-group has-danger">
           <label class="sr-only" for="email">E-Mail Address</label>
           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -29,8 +29,8 @@ body {
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
         <div class="form-group">
           <label class="sr-only" for="password">Password</label>
           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -38,8 +38,7 @@ body {
           </div>
         </div>
       </div>
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
+      <div class="col-md-12">
         <div class="form-control-feedback">
           <span class="text-danger align-middle">
                           {{error}}
@@ -50,7 +49,7 @@ body {
 
     <div class="row" style="padding-top: 1rem">
       <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <div class="col-md-6"><hr>
         <button class="btn btn-success" v-on:click="login">Login</button>
       </div>
     </div>

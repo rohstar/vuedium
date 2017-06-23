@@ -72,7 +72,7 @@ body {
               <div class="row" style="padding-top: 1rem">
                   <div class="col-md-3"></div>
                   <div class="col-md-6">
-                      <button type="submit" class="btn btn-success">Login</button>
+                      <button type="submit" class="btn btn-success" v-on:click.prevent="createAccount">Create Account</button>
                   </div>
               </div>
               <div class="row" style="padding-top: 1rem">
@@ -85,6 +85,8 @@ body {
 </div>
 </template>
 <script>
+
+import {auth} from '../db'
 
 export default {
   name: 'signup',
@@ -100,6 +102,16 @@ export default {
   methods: {
     loginRedirect: function(){
       this.$router.push('/login')
+    },
+    createAccount: function(){
+
+      if(this.password != '' && this.confirmPassword != ''){
+        if(this.password == this.confirmPassword){
+          auth.createUserWithEmailAndPassword(this.username, this.password).catch(function(error) {
+              var errorCode = error.code;
+          });
+        }
+      }
     }
   }
 

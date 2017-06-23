@@ -28,8 +28,9 @@ h4{
 
 <script>
 //firebase import /posts
-import db from '../db'
-let postsRef = db.database().ref('/posts')
+import {db} from '../db'
+
+let postsRef = db.ref('/posts')
 
 export default {
 
@@ -53,9 +54,6 @@ export default {
           name: this.name,
           post: this.post,
         });
-
-
-
 
       }
 

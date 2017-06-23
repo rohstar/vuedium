@@ -9,6 +9,8 @@ import Routes from './routes'
 import Nav from './components/Nav.vue'
 import VueFire from 'vuefire';
 
+export const bus = new Vue();
+
 Vue.use(Router);
 Vue.use(Session);
 Vue.use(BootstrapVue);

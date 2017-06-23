@@ -13,23 +13,32 @@
 </div>
 </template>
 <script>
-import {db} from '../db'
+import {
+  db
+} from '../db'
+import authCheckerMixin from '../mixins/authCheck'
+import {
+  auth
+} from '../db'
 
 let postsRef = db.ref('/posts')
 
 export default {
-  props: ['logged'],
-  firebase: {
-    posts: postsRef
-  },
   data() {
 
     return {
 
+      user: auth.currentUser
 
     }
 
-  }
+  },
+  props: ['logged'],
+  firebase: {
+    posts: postsRef
+  },
+  mixins: [authCheckerMixin],
+
 }
 </script>
 <style>

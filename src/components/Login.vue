@@ -10,7 +10,6 @@ body {
 
 <template>
 <div class="container">
-  <form class="form-horizontal" role="form" method="POST" action="/login">
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
@@ -52,7 +51,7 @@ body {
     <div class="row" style="padding-top: 1rem">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <button type="submit" class="btn btn-success" v-on:click.prevent="login">Login</button>
+        <button class="btn btn-success" v-on:click="login">Login</button>
       </div>
     </div>
     <div class="row" style="padding-top: 1rem">
@@ -61,7 +60,6 @@ body {
         <button type="button" class="btn btn-secondary btn-sm" v-on:click="signUpRedirect">Create Account</button>
       </div>
     </div>
-  </form>
 </div>
 </template>
 <script>
@@ -82,17 +80,21 @@ export default {
       error: '',
     }
   },
+
+  created: function(){
+    console.log(this.user);
+    if (auth.currentUser) {
+      this.$router.push('/posts')
+    }
+
+  },
+
   computed: {
     user: function() {
       return auth.currentUser;
     }
   },
-  beforeCreated: function(){
-    if (auth.currentUser != null) {
-      this.$router.push('/posts')
-    }
 
-  },
   methods: {
     signUpRedirect: function() {
       this.$router.push('/signup')

@@ -8,13 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <router-link v-if="'logged == true'" class="nav-link" to="/posts">Posts</router-link>
+          <router-link v-if="logged == true" class="nav-link" to="/posts">Posts</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="'logged == true'" class="nav-link" to="/create">Create Post</router-link>
+          <router-link v-if="logged == true" class="nav-link" to="/create">Create Post</router-link>
         </li>
         <li class="nav-item">
-          <a v-if="'logged == true'" class="nav-link" v-on:click.prevent="logout">Logout</a>
+          <a v-if="logged == true" class="nav-link" v-on:click.prevent="logout">Logout</a>
         </li>
       </ul>
     </div>
@@ -35,28 +35,22 @@ export default {
   data() {
 
     return {
-
+      logged: false
     }
 
   },
   computed: {
-    logged: function() {
-      if (auth.currentUser != null) {
-        console.log(auth.currentUser);
-        return true;
-      }
-      return false;
-    }
+
   },
   mounted: function(){
     bus.$on('logged-in', () => {
-      console.log('NAV KNOWS.')
+      this.logged = true
     })
   },
   methods: {
     logout: function() {
       let rout = this.$router;
-      this.$forceUpdate();
+      this.logged = false;
       auth.signOut().then(function() {
         rout.push('/login')
       })

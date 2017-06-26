@@ -13,7 +13,7 @@
 <template>
 
 <div id="app">
-  <topnav v-bind:logged="logged"></topnav>
+  <topnav></topnav>
   <div class="container">
     <router-view></router-view>
   </div>

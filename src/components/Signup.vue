@@ -22,10 +22,22 @@ body {
                   <div class="col-md-3"></div>
                   <div class="col-md-6">
                       <div class="form-group has-danger">
-                          <label class="sr-only" for="email">E-Mail Address</label>
+                          <label class="sr-only" for="email">Username</label>
                           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                               <input type="text" name="text" class="form-control" id="username"
-                                     placeholder="Username" required v-model="username">
+                                     placeholder="Username" v-model="username">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                      <div class="form-group has-danger">
+                          <label class="sr-only" for="email">E-Mail Address</label>
+                          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                              <input type="email" name="email" class="form-control" id="email"
+                                     placeholder="Email Address" v-model="email">
                           </div>
                       </div>
                   </div>
@@ -56,7 +68,7 @@ body {
                           <label class="sr-only" for="password">Confirm Password</label>
                           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                               <input type="password" name="password" class="form-control" id="password"
-                                     placeholder="Password" required v-model="confirmPassword">
+                                     placeholder="Confirm Password" required v-model="confirmPassword">
                           </div>
                       </div>
                   </div>
@@ -94,9 +106,15 @@ export default {
     return {
       username: '',
       password: '',
+      email: '',
       confirmPassword: '',
       error: '',
       wantsToSignUp: false
+    }
+  },
+  created: function(){
+    if (auth.currentUser) {
+      this.$router.push('/posts')
     }
   },
   methods: {
@@ -105,11 +123,26 @@ export default {
     },
     createAccount: function(){
 
-      if(this.password != '' && this.confirmPassword != ''){
+      if(this.email != '' && this.password != '' && this.confirmPassword != ''){
         if(this.password == this.confirmPassword){
-          auth.createUserWithEmailAndPassword(this.username, this.password).catch(function(error) {
-              var errorCode = error.code;
+
+          const dat = this;
+
+          auth.createUserWithEmailAndPassword(this.email, this.password).catch(function(error, authData) {
+              dat._data.error = err.message;
+              console.log(authData);
           });
+
+          if(auth.currentUser){
+
+            this.user = auth.currentUser;
+
+            //use bus to emit the user
+            bus.$emit('logged-in', this.user);
+            this.$router.push('/posts');
+
+          }
+
         }
       }
     }

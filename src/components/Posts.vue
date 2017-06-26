@@ -33,7 +33,6 @@ export default {
     }
 
   },
-  props: ['logged'],
   firebase: {
     posts: postsRef
   },

@@ -35,25 +35,31 @@ export default {
   data() {
 
     return {
-      logged: false
+      logged: false,
+      user: null
     }
 
   },
-  computed: {
-
-  },
   mounted: function(){
+
     bus.$on('logged-in', () => {
       this.logged = true
     })
+
   },
   methods: {
     logout: function() {
+
       let rout = this.$router;
+
       this.logged = false;
+
       auth.signOut().then(function() {
         rout.push('/login')
       })
+
+      bus.$emit('logged-out', '');
+
     }
   }
 

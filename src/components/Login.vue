@@ -23,7 +23,7 @@ body {
         <div class="form-group has-danger">
           <label class="sr-only" for="email">E-Mail Address</label>
           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <input type="email" name="email" class="form-control" id="username" placeholder="bugs@bunny.com" required v-model="email">
+            <input type="email" name="email" class="form-control" id="email" placeholder="bugs@bunny.com" required v-model="email">
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ body {
 
     <div class="row" style="padding-top: 1rem">
       <div class="col-md-3"></div>
-      <div class="col-md-6"><hr>
+      <div class="col-md-6">
         <button class="btn btn-success" v-on:click="login">Login</button>
       </div>
     </div>
@@ -71,34 +71,33 @@ import {
 } from '../main'
 
 export default {
+
   name: 'login',
+
   data() {
     return {
       email: '',
       password: '',
       error: '',
+      user: null
     }
   },
 
   created: function(){
-    console.log(this.user);
+    //prevent visiting this page if logged in
     if (auth.currentUser) {
       this.$router.push('/posts')
-    }
-
-  },
-
-  computed: {
-    user: function() {
-      return auth.currentUser;
     }
   },
 
   methods: {
+
     signUpRedirect: function() {
       this.$router.push('/signup')
     },
+
     login: function() {
+
       //since we can't access this within the catch, we create a reference.
       if (this.email == '' || this.password == '') {
         this.error = "Username or Password empty..."
@@ -111,8 +110,13 @@ export default {
 
       //if no errors, take to posts.
       if(auth.currentUser){
-        bus.$emit('logged-in', auth.currentUser);
+
+        this.user = auth.currentUser;
+
+        //use bus to emit the user
+        bus.$emit('logged-in', this.user);
         this.$router.push('/posts');
+
       }
 
     }

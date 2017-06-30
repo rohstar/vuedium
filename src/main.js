@@ -8,6 +8,7 @@ import BootstrapVue from 'bootstrap-vue'
 import Routes from './routes'
 import Nav from './components/Nav.vue'
 import VueFire from 'vuefire';
+import Toast from 'vue-easy-toast'
 
 export const bus = new Vue();
 
@@ -15,6 +16,7 @@ Vue.use(Router);
 Vue.use(Session);
 Vue.use(BootstrapVue);
 Vue.use(VueFire);
+Vue.use(Toast);
 
 Vue.component('topnav', Nav);
 

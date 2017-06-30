@@ -33,10 +33,11 @@ export default {
     }
 
   },
+
   firebase: {
     posts: postsRef
   },
-  mixins: [authCheckerMixin],
+  // mixins: [authCheckerMixin],
 
 }
 </script>
